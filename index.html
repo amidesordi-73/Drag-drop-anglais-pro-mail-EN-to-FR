@@ -1,201 +1,64 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Drag & Drop Anglais Professionnel</title>
-
-<style>
-    body{
-        font-family: Arial, sans-serif;
-        background:#f4f6f8;
-        margin:0;
-        padding:30px;
-    }
-
-    h1{
-        text-align:center;
-        color:#2c3e50;
-    }
-
-    p{
-        text-align:center;
-        color:#555;
-    }
-
-    .container{
-        display:flex;
-        gap:40px;
-        max-width:1200px;
-        margin:30px auto;
-        flex-wrap:wrap;
-        justify-content:center;
-    }
-
-    .column{
-        background:white;
-        padding:20px;
-        border-radius:12px;
-        box-shadow:0 2px 8px rgba(0,0,0,0.1);
-        width:450px;
-        min-height:500px;
-    }
-
-    .column h2{
-        text-align:center;
-        color:#34495e;
-    }
-
-    .item{
-        background:#3498db;
-        color:white;
-        padding:12px;
-        margin:10px 0;
-        border-radius:8px;
-        cursor:grab;
-        transition:0.2s;
-    }
-
-    .item:hover{
-        transform:scale(1.02);
-    }
-
-    .dropzone{
-        background:#ecf0f1;
-        border:2px dashed #95a5a6;
-        padding:12px;
-        margin:10px 0;
-        border-radius:8px;
-        min-height:25px;
-    }
-
-    .correct{
-        background:#2ecc71 !important;
-        color:white;
-    }
-
-    .wrong{
-        background:#e74c3c !important;
-        color:white;
-    }
-
-    #score{
-        text-align:center;
-        font-size:22px;
-        margin-top:20px;
-        font-weight:bold;
-        color:#2c3e50;
-    }
-
-    button{
-        display:block;
-        margin:20px auto;
-        padding:12px 20px;
-        border:none;
-        border-radius:8px;
-        background:#2c3e50;
-        color:white;
-        cursor:pointer;
-        font-size:16px;
-    }
-
-    button:hover{
-        background:#1a252f;
-    }
-</style>
-</head>
-
-<body>
-
-<h1>Drag & Drop – Anglais Professionnel</h1>
-<p>Glissez les traductions anglaises dans la bonne case.</p>
-
-<div class="container">
-
-    <div class="column">
-        <h2>Français</h2>
-
-        <div class="dropzone" data-answer="To send an email">
-            Envoyer un e-mail
-        </div>
-
-        <div class="dropzone" data-answer="An attachment">
-            Une pièce jointe
-        </div>
-
-        <div class="dropzone" data-answer="Attached / Please find attached">
-            En pièce jointe
-        </div>
-
-        <div class="dropzone" data-answer="To forward an email">
-            Transférer un email
-        </div>
-
-        <div class="dropzone" data-answer="As agreed">
-            Comme convenu
-        </div>
-
-        <div class="dropzone" data-answer="We look forward to hearing from you">
-            Dans l'attente d'un retour...
-        </div>
-
-        <div class="dropzone" data-answer="Best / Kind regards">
-            Conclusion (formule de politesse - formelle)
-        </div>
-		
-		<div class="dropzone" data-answer="Yours sincerely / Yours faithfully">
-            Conclusion (formule de politesse + formelle)
-        </div>
-    </div>
-
-    <div class="column">
-        <h2>Anglais</h2>
-
-        <div class="item" draggable="true">To send an email</div>
-        <div class="item" draggable="true">Best / Kind regards</div>
-		<div class="item" draggable="true">Yours sincerely / Yours faithfully</div>
-        <div class="item" draggable="true">As agreed</div>
-        <div class="item" draggable="true">We look forward to hearing from you</div>
-        <div class="item" draggable="true">Attached / Please find attached</div>
-        <div class="item" draggable="true">An attachment</div>
-        <div class="item" draggable="true">To forward an email</div>
-		
-
-    </div>
-
-</div>
-
-<button onclick="checkAnswers()">Vérifier les réponses</button>
-
-<div id="score"></div>
-
 <script>
 
 const items = document.querySelectorAll('.item');
 const dropzones = document.querySelectorAll('.dropzone');
+const englishColumn = document.querySelectorAll('.column')[1];
 
 let draggedItem = null;
 
-items.forEach(item => {
-    item.addEventListener('dragstart', () => {
-        draggedItem = item;
-    });
+// Drag des éléments
+document.addEventListener('dragstart', (e) => {
+
+    if(e.target.classList.contains('item')){
+        draggedItem = e.target;
+    }
+
 });
 
+// Autorise le drop dans les zones françaises
 dropzones.forEach(zone => {
 
     zone.addEventListener('dragover', (e) => {
         e.preventDefault();
     });
 
-    zone.addEventListener('drop', () => {
+    zone.addEventListener('drop', (e) => {
 
-        if(zone.querySelector('.item')) return;
+        e.preventDefault();
+
+        // Si une autre réponse est déjà présente,
+        // on la renvoie dans la colonne de droite
+        const existingItem = zone.querySelector('.item');
+
+        if(existingItem){
+            englishColumn.appendChild(existingItem);
+        }
 
         zone.appendChild(draggedItem);
+
+        // Nettoyage des couleurs
+        zone.classList.remove('correct', 'wrong');
+
     });
+
 });
 
+// Permet de remettre les réponses dans la colonne de droite
+englishColumn.addEventListener('dragover', (e) => {
+    e.preventDefault();
+});
+
+englishColumn.addEventListener('drop', (e) => {
+
+    e.preventDefault();
+
+    if(draggedItem){
+        englishColumn.appendChild(draggedItem);
+    }
+
+});
+
+// Vérification
 function checkAnswers(){
 
     let score = 0;
@@ -209,15 +72,22 @@ function checkAnswers(){
         if(item){
 
             if(item.textContent.trim() === zone.dataset.answer){
+
                 zone.classList.add('correct');
                 score++;
+
             }else{
+
                 zone.classList.add('wrong');
+
             }
 
         }else{
+
             zone.classList.add('wrong');
+
         }
+
     });
 
     document.getElementById('score').innerHTML =
@@ -225,6 +95,3 @@ function checkAnswers(){
 }
 
 </script>
-
-</body>
-</html>
