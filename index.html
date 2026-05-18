@@ -1,97 +1,353 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drag & Drop Anglais Professionnel mail</title>
+
+<style>
+    body{
+        font-family: Arial, sans-serif;
+        background:#f4f6f8;
+        margin:0;
+        padding:30px;
+    }
+
+    h1{
+        text-align:center;
+        color:#2c3e50;
+    }
+
+    p{
+        text-align:center;
+        color:#555;
+    }
+
+    .container{
+        display:flex;
+        gap:40px;
+        max-width:1200px;
+        margin:30px auto;
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .column{
+        background:white;
+        padding:20px;
+        border-radius:12px;
+        box-shadow:0 2px 8px rgba(0,0,0,0.1);
+        width:450px;
+        min-height:500px;
+    }
+
+    .column h2{
+        text-align:center;
+        color:#34495e;
+    }
+
+    .item{
+        background:#3498db;
+        color:white;
+        padding:12px;
+        margin:10px 0;
+        border-radius:8px;
+        cursor:grab;
+        transition:0.2s;
+        user-select:none;
+    }
+
+    .item:hover{
+        transform:scale(1.02);
+    }
+
+    .item:active{
+        cursor:grabbing;
+    }
+
+    .dropzone{
+        background:#ecf0f1;
+        border:2px dashed #95a5a6;
+        padding:12px;
+        margin:10px 0;
+        border-radius:8px;
+        min-height:45px;
+        color:#2c3e50;
+    }
+
+    .dropzone .item{
+        margin-top:10px;
+        margin-bottom:0;
+    }
+
+    .correct{
+        background:#2ecc71 !important;
+        color:white;
+        border-color:#27ae60;
+    }
+
+    .wrong{
+        background:#e74c3c !important;
+        color:white;
+        border-color:#c0392b;
+    }
+
+    #score{
+        text-align:center;
+        font-size:22px;
+        margin-top:20px;
+        font-weight:bold;
+        color:#2c3e50;
+    }
+
+    .buttons{
+        display:flex;
+        justify-content:center;
+        gap:15px;
+        flex-wrap:wrap;
+        margin:20px auto;
+    }
+
+    button{
+        padding:12px 20px;
+        border:none;
+        border-radius:8px;
+        background:#2c3e50;
+        color:white;
+        cursor:pointer;
+        font-size:16px;
+    }
+
+    button:hover{
+        background:#1a252f;
+    }
+
+    .reset-btn{
+        background:#7f8c8d;
+    }
+
+    .reset-btn:hover{
+        background:#626e70;
+    }
+</style>
+</head>
+
+<body>
+
+<h1>Drag & Drop – Anglais Professionnel mail</h1>
+<p>Glissez les traductions anglaises dans la bonne case.</p>
+
+<div class="container">
+
+    <div class="column">
+        <h2>Français</h2>
+
+        <div class="dropzone" data-answer="To send an email">
+            Envoyer un e-mail
+        </div>
+
+        <div class="dropzone" data-answer="An attachment">
+            Une pièce jointe
+        </div>
+
+        <div class="dropzone" data-answer="Attached / Please find attached">
+            En pièce jointe
+        </div>
+
+        <div class="dropzone" data-answer="To forward an email">
+            Transférer un email
+        </div>
+
+        <div class="dropzone" data-answer="As agreed">
+            Comme convenu
+        </div>
+        
+        <div class="dropzone" data-answer="As agreed on / over the phone">
+            Comme convenu par téléphone
+        </div>
+        
+        <div class="dropzone" data-answer="A request concerning / regarding">
+            Une demande concernant
+        </div>
+        
+        <div class="dropzone" data-answer="Could you please... / Please...">
+            Je vous prie de ... / Merci de ... / Veuillez ...
+        </div>
+        
+        <div class="dropzone" data-answer="We look forward to hearing from you">
+            Dans l'attente d'un retour...
+        </div>
+        
+        <div class="dropzone" data-answer="We look forward to hearing from you soon">
+            Dans l'attente d'un retour rapide...
+        </div>
+
+        <div class="dropzone" data-answer="Best / Kind regards">
+            Conclusion (formule de politesse - formelle)
+        </div>
+        
+        <div class="dropzone" data-answer="Yours sincerely / Yours faithfully">
+            Conclusion (formule de politesse + formelle)
+        </div>
+        
+        <div class="dropzone" data-answer="I / We remain at your disposal for any further information">
+            Je reste à votre disposition pour toute information complémentaire
+        </div>
+        
+        <div class="dropzone" data-answer="Dear Sir / Dear Mr Smith">
+            (Cher) Monsieur, M. Smith
+        </div>
+        
+        <div class="dropzone" data-answer="Dear Madam / Dear Mrs / Ms Smith">
+            (Chère) Madame, Mme Smith
+        </div>
+    </div>
+
+    <div class="column english-column">
+        <h2>Anglais</h2>
+
+        <div class="item" draggable="true">To send an email</div>
+        <div class="item" draggable="true">Best / Kind regards</div>
+        <div class="item" draggable="true">Yours sincerely / Yours faithfully</div>
+        <div class="item" draggable="true">As agreed</div>
+        <div class="item" draggable="true">We look forward to hearing from you</div>
+        <div class="item" draggable="true">Attached / Please find attached</div>
+        <div class="item" draggable="true">An attachment</div>
+        <div class="item" draggable="true">To forward an email</div>
+        <div class="item" draggable="true">Dear Sir / Dear Mr Smith</div>
+        <div class="item" draggable="true">Dear Madam / Dear Mrs / Ms Smith</div>
+        <div class="item" draggable="true">As agreed on / over the phone</div>
+        <div class="item" draggable="true">A request concerning / regarding</div>
+        <div class="item" draggable="true">We look forward to hearing from you soon</div>
+        <div class="item" draggable="true">Could you please... / Please...</div>
+        <div class="item" draggable="true">I / We remain at your disposal for any further information</div>
+    </div>
+
+</div>
+
+<div class="buttons">
+    <button onclick="checkAnswers()">Vérifier les réponses</button>
+    <button class="reset-btn" onclick="resetExercise()">Recommencer</button>
+</div>
+
+<div id="score"></div>
+
 <script>
+document.addEventListener('DOMContentLoaded', function () {
 
-const items = document.querySelectorAll('.item');
-const dropzones = document.querySelectorAll('.dropzone');
-const englishColumn = document.querySelectorAll('.column')[1];
+    const items = document.querySelectorAll('.item');
+    const dropzones = document.querySelectorAll('.dropzone');
+    const englishColumn = document.querySelector('.english-column');
+    const scoreZone = document.getElementById('score');
 
-let draggedItem = null;
+    let draggedItem = null;
 
-// Drag des éléments
-document.addEventListener('dragstart', (e) => {
+    // On garde l'ordre initial des réponses anglaises
+    const initialItemsOrder = Array.from(items);
 
-    if(e.target.classList.contains('item')){
-        draggedItem = e.target;
-    }
+    // =====================
+    // DRAG START
+    // =====================
+    items.forEach(function (item) {
+        item.addEventListener('dragstart', function () {
+            draggedItem = item;
+        });
 
-});
-
-// Autorise le drop dans les zones françaises
-dropzones.forEach(zone => {
-
-    zone.addEventListener('dragover', (e) => {
-        e.preventDefault();
+        item.addEventListener('dragend', function () {
+            draggedItem = null;
+        });
     });
 
-    zone.addEventListener('drop', (e) => {
+    // =====================
+    // DROP SUR LES CASES FRANÇAISES
+    // =====================
+    dropzones.forEach(function (zone) {
 
-        e.preventDefault();
+        zone.addEventListener('dragover', function (e) {
+            e.preventDefault();
+        });
 
-        // Si une autre réponse est déjà présente,
-        // on la renvoie dans la colonne de droite
-        const existingItem = zone.querySelector('.item');
+        zone.addEventListener('drop', function (e) {
+            e.preventDefault();
 
-        if(existingItem){
-            englishColumn.appendChild(existingItem);
-        }
+            if (!draggedItem) return;
 
-        zone.appendChild(draggedItem);
+            const existingItem = zone.querySelector('.item');
 
-        // Nettoyage des couleurs
-        zone.classList.remove('correct', 'wrong');
-
-    });
-
-});
-
-// Permet de remettre les réponses dans la colonne de droite
-englishColumn.addEventListener('dragover', (e) => {
-    e.preventDefault();
-});
-
-englishColumn.addEventListener('drop', (e) => {
-
-    e.preventDefault();
-
-    if(draggedItem){
-        englishColumn.appendChild(draggedItem);
-    }
-
-});
-
-// Vérification
-function checkAnswers(){
-
-    let score = 0;
-
-    dropzones.forEach(zone => {
-
-        const item = zone.querySelector('.item');
-
-        zone.classList.remove('correct','wrong');
-
-        if(item){
-
-            if(item.textContent.trim() === zone.dataset.answer){
-
-                zone.classList.add('correct');
-                score++;
-
-            }else{
-
-                zone.classList.add('wrong');
-
+            // Si la case contient déjà une réponse différente,
+            // on la renvoie dans la colonne anglaise.
+            if (existingItem && existingItem !== draggedItem) {
+                englishColumn.appendChild(existingItem);
             }
 
-        }else{
+            // On place la réponse glissée dans la case.
+            zone.appendChild(draggedItem);
 
-            zone.classList.add('wrong');
+            // Si l'utilisateur corrige sa réponse après vérification,
+            // on enlève la couleur rouge/verte de cette case.
+            zone.classList.remove('correct', 'wrong');
 
-        }
-
+            scoreZone.innerHTML = '';
+        });
     });
 
-    document.getElementById('score').innerHTML =
-        "Score : " + score + " / " + dropzones.length;
-}
+    // =====================
+    // RETOUR POSSIBLE VERS LA COLONNE ANGLAISE
+    // =====================
+    englishColumn.addEventListener('dragover', function (e) {
+        e.preventDefault();
+    });
 
+    englishColumn.addEventListener('drop', function (e) {
+        e.preventDefault();
+
+        if (!draggedItem) return;
+
+        englishColumn.appendChild(draggedItem);
+        scoreZone.innerHTML = '';
+    });
+
+    // =====================
+    // VÉRIFICATION
+    // =====================
+    window.checkAnswers = function () {
+        let score = 0;
+
+        dropzones.forEach(function (zone) {
+            const item = zone.querySelector('.item');
+
+            zone.classList.remove('correct', 'wrong');
+
+            if (item && item.textContent.trim() === zone.dataset.answer.trim()) {
+                zone.classList.add('correct');
+                score++;
+            } else {
+                zone.classList.add('wrong');
+            }
+        });
+
+        scoreZone.innerHTML = 'Score : ' + score + ' / ' + dropzones.length;
+    };
+
+    // =====================
+    // RECOMMENCER
+    // =====================
+    window.resetExercise = function () {
+
+        dropzones.forEach(function (zone) {
+            zone.classList.remove('correct', 'wrong');
+        });
+
+        initialItemsOrder.forEach(function (item) {
+            englishColumn.appendChild(item);
+        });
+
+        scoreZone.innerHTML = '';
+        draggedItem = null;
+    };
+
+});
 </script>
+
+</body>
+</html>
